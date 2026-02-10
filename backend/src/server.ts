@@ -15,19 +15,32 @@ dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
+
+const PORT = process.env.PORT || 3000;
+
+// Parse CORS origins - support comma-separated string or array
+const getCorsOrigin = () => {
+  const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
+  
+  // If comma-separated, split into array
+  if (corsOrigin.includes(',')) {
+    return corsOrigin.split(',').map(origin => origin.trim());
+  }
+  
+  return corsOrigin;
+};
+
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: getCorsOrigin(),
     credentials: true,
   },
 });
 
-const PORT = process.env.PORT || 3000;
-
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  origin: getCorsOrigin(),
   credentials: true
 }));
 

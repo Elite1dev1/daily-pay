@@ -15,18 +15,7 @@ export default defineConfig({
         short_name: 'DaiLi Pay',
         description: 'Trust-minimized daily savings infrastructure',
         theme_color: '#ffffff',
-        icons: [
-          {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
+        // Icons can be added later - PWA will work without them
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
